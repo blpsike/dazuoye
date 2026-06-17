@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册0137商城</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .register-container {
+            width: 400px;
+            padding: 40px 30px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 28px;
+            font-size: 26px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #555;
+        }
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+        }
+        input:focus {
+            border-color: #a33;
+            box-shadow: 0 0 0 2px rgba(170, 51, 51, 0.1);
+        }
+        input.valid {
+            border-color: #2a6;
+            background-color: #f0fff0;
+        }
+        input.invalid {
+            border-color: #c00;
+            background-color: #fff0f0;
+        }
+        .message {
+            font-size: 12px;
+            margin-top: 6px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: 0.2s;
+        }
+        .message.success {
+            background: #e0ffe0;
+            color: #2a6;
+        }
+        .message.error {
+            background: #ffe0e0;
+            color: #c00;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+        }
+        .btn-primary {
+            background-color: #a33;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #822;
+        }
+        .switch-form {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        .switch-form a {
+            color: #a33;
+            text-decoration: none;
+        }
+        .switch-form a:hover {
+            text-decoration: underline;
+        }
+        .global-message {
+            margin-top: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h2 style="text-align: left;">用户注册</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label>用户名</label>
+                <input type="text" id="username" placeholder="请输入用户名" autocomplete="off">
+                <div id="usernameMsg" class="message"></div>
+            </div>
+            <div class="form-group">
+                <label>邮箱</label>
+                <input type="email" id="reg-email" placeholder="请输入邮箱" autocomplete="off">
+                <div id="emailMsg" class="message"></div>
+            </div>
+            <div class="form-group">
+                <label>密码</label>
+                <input type="password" id="reg-password" placeholder="请输入6位密码">
+                <div id="pwdMsg" class="message"></div>
+            </div>
+            <div class="form-group">
+                <label>确认密码</label>
+                <input type="password" id="confirm-password" placeholder="请再次输入密码">
+                <div id="confirmMsg" class="message"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">注册</button>
+        </form>
+        <p class="switch-form">
+            已有账号? <a href="login.html">立即登录</a>
+        </p>
+        <div id="globalMsg" class="global-message"></div>
+    </div>
+
+    <script>
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('reg-email');
+        const passwordInput = document.getElementById('reg-password');
+        const confirmInput = document.getElementById('confirm-password');
+
+        const usernameMsg = document.getElementById('usernameMsg');
+        const emailMsg = document.getElementById('emailMsg');
+        const pwdMsg = document.getElementById('pwdMsg');
+        const confirmMsg = document.getElementById('confirmMsg');
+
+        const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
+
+        function validateUsername() {
+            const username = usernameInput.value.trim();
+            if (username === '') {
+                usernameMsg.innerHTML = '';
+                usernameMsg.className = 'message';
+                usernameInput.classList.remove('valid', 'invalid');
+                return false;
+            }
+            if (username.length < 2) {
+                usernameMsg.innerHTML = '❌ 用户名至少2个字符';
+                usernameMsg.className = 'message error';
+                usernameInput.classList.add('invalid');
+                usernameInput.classList.remove('valid');
+                return false;
+            } else {
+                usernameMsg.innerHTML = '✓ 用户名可用';
+                usernameMsg.className = 'message success';
+                usernameInput.classList.add('valid');
+                usernameInput.classList.remove('invalid');
+                return true;
+            }
+        }
+
+        function validateEmail() {
+            const email = emailInput.value.trim();
+            if (email === '') {
+                emailMsg.innerHTML = '';
+                emailMsg.className = 'message';
+                emailInput.classList.remove('valid', 'invalid');
+                return false;
+            }
+            if (!emailRegex.test(email)) {
+                emailMsg.innerHTML = '❌ 邮箱格式不正确，示例: user@example.com';
+                emailMsg.className = 'message error';
+                emailInput.classList.add('invalid');
+                emailInput.classList.remove('valid');
+                return false;
+            } else {
+                emailMsg.innerHTML = '✓ 邮箱格式正确';
+                emailMsg.className = 'message success';
+                emailInput.classList.add('valid');
+                emailInput.classList.remove('invalid');
+                return true;
+            }
+        }
+
+        function validatePassword() {
+            const pwd = passwordInput.value;
+            if (pwd === '') {
+                pwdMsg.innerHTML = '';
+                pwdMsg.className = 'message';
+                passwordInput.classList.remove('valid', 'invalid');
+                return false;
+            }
+            if (pwd.length !== 6) {
+                pwdMsg.innerHTML = '❌ 密码必须为6位';
+                pwdMsg.className = 'message error';
+                passwordInput.classList.add('invalid');
+                passwordInput.classList.remove('valid');
+                return false;
+            } else {
+                pwdMsg.innerHTML = '✓ 密码长度符合要求';
+                pwdMsg.className = 'message success';
+                passwordInput.classList.add('valid');
+                passwordInput.classList.remove('invalid');
+                return true;
+            }
+        }
+
+        function validateConfirm() {
+            const pwd = passwordInput.value;
+            const confirm = confirmInput.value;
+            if (confirm === '') {
+                confirmMsg.innerHTML = '';
+                confirmMsg.className = 'message';
+                confirmInput.classList.remove('valid', 'invalid');
+                return false;
+            }
+            if (pwd !== confirm) {
+                confirmMsg.innerHTML = '❌ 两次输入的密码不一致';
+                confirmMsg.className = 'message error';
+                confirmInput.classList.add('invalid');
+                confirmInput.classList.remove('valid');
+                return false;
+            } else if (pwd.length !== 6) {
+                confirmMsg.innerHTML = '⚠️ 请先设置6位密码';
+                confirmMsg.className = 'message error';
+                confirmInput.classList.add('invalid');
+                confirmInput.classList.remove('valid');
+                return false;
+            } else {
+                confirmMsg.innerHTML = '✓ 密码一致';
+                confirmMsg.className = 'message success';
+                confirmInput.classList.add('valid');
+                confirmInput.classList.remove('invalid');
+                return true;
+            }
+        }
+
+        usernameInput.addEventListener('input', validateUsername);
+        emailInput.addEventListener('input', validateEmail);
+        passwordInput.addEventListener('input', () => {
+            validatePassword();
+            if (confirmInput.value !== '') validateConfirm();
+        });
+        confirmInput.addEventListener('input', validateConfirm);
+
+        // 注册提交逻辑
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const isUsernameValid = validateUsername();
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
+            const isConfirmValid = validateConfirm();
+            
+            const globalMsgDiv = document.getElementById('globalMsg');
+            globalMsgDiv.innerHTML = '';
+            
+            if (isUsernameValid && isEmailValid && isPasswordValid && isConfirmValid) {
+                const username = usernameInput.value.trim();
+                const email = emailInput.value.trim();
+                const password = passwordInput.value;
+                
+                // 获取已存在的用户列表
+                let users = JSON.parse(localStorage.getItem('users')) || [];
+                
+                // 检查邮箱是否已被注册
+                const existingUser = users.find(u => u.email === email);
+                if (existingUser) {
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'message error';
+                    errorDiv.style.textAlign = 'center';
+                    errorDiv.innerHTML = '❌ 该邮箱已被注册，请直接登录';
+                    globalMsgDiv.appendChild(errorDiv);
+                    setTimeout(() => errorDiv.remove(), 3000);
+                    return;
+                }
+                
+                // 新用户
+                const newUser = {
+                    id: Date.now(),
+                    username: username,
+                    email: email,
+                    password: password  // 生产环境应加密，此处仅为演示
+                };
+                users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                // 自动登录
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('currentUser', JSON.stringify({ email, name: username }));
+                
+                const successDiv = document.createElement('div');
+                successDiv.className = 'message success';
+                successDiv.style.textAlign = 'center';
+                successDiv.innerHTML = '✓ 注册成功！正在跳转...';
+                globalMsgDiv.appendChild(successDiv);
+                
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+            } else {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'message error';
+                errorDiv.style.textAlign = 'center';
+                errorDiv.innerHTML = '❌ 请正确填写所有字段';
+                globalMsgDiv.appendChild(errorDiv);
+                setTimeout(() => errorDiv.remove(), 3000);
+            }
+        });
+    </script>
+</body>
+</html>

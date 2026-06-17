@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>0137购物商城首页</title>
+    <style>
+        /* ========== 全局重置 & 基础样式 ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #eae8eb;
+            font-family: 'Microsoft YaHei', 'Segoe UI', Arial, sans-serif;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        /* 公用容器宽度 */
+        .site-nav-bd,
+        .top-box,
+        .nav-box ul,
+        .main-box,
+        .goods,
+        .bottom-personal,
+        .service-footer,
+        .footer-links {
+            width: 1190px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 1200px) {
+            .site-nav-bd,
+            .top-box,
+            .nav-box ul,
+            .main-box,
+            .goods,
+            .bottom-personal,
+            .service-footer,
+            .footer-links {
+                width: 96%;
+            }
+        }
+
+        /* ========== 顶部导航栏 ========== */
+        .site-nav {
+            width: 100%;
+            background: #f5f5f5;
+            height: 35px;
+            line-height: 35px;
+            border-bottom: 1px solid #eee;
+        }
+        .site-nav-bd {
+            width: 1190px;
+            margin: 0 auto;
+        }
+        .site-nav-bd ul {
+            float: right;
+            list-style: none;
+            display: flex;
+        }
+        .site-nav-bd ul li {
+            color: #6c6c6c;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+        .site-nav-bd ul li a {
+            color: #6c6c6c;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        .site-nav-bd ul li img {
+            width: 12px;
+            margin-right: 5px;
+        }
+        .site-nav-bd ul li:hover a {
+            color: #1677ff;
+        }
+
+        /* ========== 搜索头部 ========== */
+        .top-box {
+            width: 1190px;
+            margin: 0 auto;
+            padding-top: 30px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo {
+            width: 190px;
+            text-align: center;
+            color: #1677ff;
+            font-size: 34px;
+            font-weight: bold;
+            float: left;
+        }
+        .logo a {
+            text-decoration: none;
+            color: #1677ff;
+        }
+        .logo .small {
+            font-size: 16px;
+        }
+        .search-box {
+            flex: 1;
+            max-width: 630px;
+            height: 42px;
+            background: #fff;
+            border: 1px solid #1677ff;
+            margin-left: 258px;
+            border-radius: 20px;
+            position: relative;
+        }
+        .search-in {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding-left: 12px;
+        }
+        .search-in span {
+            color: #333;
+            height: 42px;
+            width: 74px;
+            text-align: center;
+            font-size: 12px;
+            line-height: 42px;
+            border-right: 1px solid #efefef;
+            margin-right: 5px;
+        }
+        .search-in input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            outline: none;
+            padding: 0 8px;
+            font-size: 14px;
+        }
+        .search-in .but {
+            position: absolute;
+            top: 4px;
+            right: 6px;
+            background-image: linear-gradient(to right, #4096ff 0%, #1677ff 100%);
+            width: 73px;
+            height: 34px;
+            line-height: 34px;
+            text-align: center;
+            color: #fff;
+            font-size: 17px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        .tag {
+            margin-top: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .tag a {
+            color: #3c3c3c;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .tag a.on {
+            color: #1677ff;
+        }
+
+        /* ========== 主导航 ========== */
+        .nav-box {
+            width: 100%;
+            background: #fff;
+            margin-top: 20px;
+            line-height: 50px;
+            color: #333;
+            font-size: 16px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+        .nav-box ul {
+            width: 1190px;
+            margin: 0 auto;
+            list-style: none;
+            display: flex;
+        }
+        .nav-box ul li {
+            padding: 0 25px;
+            cursor: pointer;
+            position: relative;
+        }
+        .nav-box ul li a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+        .nav-box ul li.on {
+            background: #1677ff;
+        }
+        .nav-box ul li.on a {
+            color: #fff;
+        }
+        .nav-box ul li:hover a {
+            color: #1677ff;
+            font-weight: bold;
+        }
+        .nav-hide {
+            display: none;
+            position: absolute;
+            top: 45px;
+            left: -10px;
+            width: 120px;
+            background: #fff;
+            line-height: 35px;
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            padding: 10px 0;
+            z-index: 10;
+        }
+        .nav-hide p a {
+            color: #666;
+            text-decoration: none;
+        }
+        .nav-hide p:hover a {
+            color: #1677ff;
+        }
+        .nav-box ul li:hover .nav-hide {
+            display: block;
+        }
+
+        /* ========== 主内容区 ========== */
+        .main-box {
+            width: 1190px;
+            margin: 20px auto 10px;
+            display: flex;
+            gap: 20px;
+        }
+
+        /* 左侧分类导航 */
+        .left {
+            width: 230px;
+            background: #fff;
+            border-radius: 16px;
+            padding: 12px 0 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .left .tit {
+            font-size: 18px;
+            color: #1677ff;
+            text-align: center;
+            line-height: 50px;
+            font-weight: bold;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .left ul {
+            padding: 12px 0 6px 20px;
+            list-style: none;
+        }
+        .left ul li {
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .left ul li a {
+            text-decoration: none;
+            display: block;
+        }
+        .left ul li .category-main {
+            font-size: 15px;
+            font-weight: bold;
+            color: #222;
+        }
+        .left ul li .category-sub {
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+        }
+        .left ul li:hover .category-main {
+            color: #1677ff;
+        }
+
+        /* 中间轮播图区域 */
+        .mid {
+            flex: 1;
+            background: transparent;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: #f3f3f3;
+        }
+        .carousel-slides {
+            position: relative;
+            width: 100%;
+            height: auto;
+        }
+        .carousel-slide {
+            display: none;
+            width: 100%;
+        }
+        .carousel-slide.active {
+            display: block;
+            animation: fadeIn 0.6s ease;
+        }
+        .carousel-slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            max-height: 380px;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.4);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 10;
+            user-select: none;
+        }
+        .carousel-btn:hover {
+            background: rgba(0,0,0,0.7);
+        }
+        .btn-prev { left: 15px; }
+        .btn-next { right: 15px; }
+        .carousel-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 10;
+        }
+        .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            margin: 0 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .dot.active {
+            background: #1677ff;
+            width: 22px;
+            border-radius: 12px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
+
+        /* ========== 商品展示区 ========== */
+        .goods {
+            width: 1190px;
+            margin: 25px auto 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            background: #fff;
+            padding: 20px 20px 30px;
+            border-radius: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        }
+        .goods-box {
+            width: calc(20% - 16px);
+            min-width: 180px;
+            transition: transform 0.2s;
+            text-align: center;
+        }
+        .goods-box:hover {
+            transform: translateY(-5px);
+        }
+        .goods-box a {
+            text-decoration: none;
+        }
+        .goods-box img {
+            width: 100%;
+            border-radius: 16px;
+            background: #f8f8f8;
+            margin-bottom: 12px;
+        }
+        .goods-box .name {
+            font-size: 15px;
+            font-weight: 500;
+            color: #2c2c2c;
+            margin: 5px 0;
+        }
+        .goods-box .price {
+            color: #1677ff;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .add-cart-btn {
+            margin-top: 10px;
+            background: #1677ff;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+        .add-cart-btn:hover {
+            background: #0c5fcc;
+        }
+
+        /* ========== 底部个人主页模块 ========== */
+        .bottom-personal {
+            width: 1190px;
+            margin: 10px auto 25px;
+            background: #fff;
+            border-radius: 24px;
+            padding: 24px 28px 28px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+        }
+        .personal-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        .avatar-lg {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .avatar-lg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .personal-info h3 {
+            font-size: 22px;
+            color: #1a1a1a;
+        }
+        .personal-info p {
+            color: #1677ff;
+            font-size: 14px;
+            margin-top: 6px;
+        }
+        .my-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            background: #f9fafc;
+            border-radius: 20px;
+            padding: 18px 25px;
+            margin-bottom: 28px;
+            justify-content: space-between;
+        }
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            min-width: 70px;
+        }
+        .stat-num {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1677ff;
+            line-height: 1.2;
+        }
+        .stat-label {
+            font-size: 13px;
+            color: #666;
+            margin-top: 6px;
+        }
+        .service-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+            background: #fff;
+        }
+        .quick-card {
+            background: #f8f9ff;
+            border-radius: 18px;
+            padding: 14px 20px;
+            transition: 0.2s;
+            border: 1px solid #eef2ff;
+        }
+        .quick-card .card-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1677ff;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .quick-card .card-detail {
+            font-size: 13px;
+            color: #4a5568;
+            line-height: 1.6;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .card-detail span {
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .card-detail span:hover {
+            color: #1677ff;
+        }
+        .hot-line {
+            color: #1677ff;
+            font-weight: bold;
+        }
+
+        /* ========== 底部服务区域 ========== */
+        .service-footer {
+            width: 1190px;
+            margin: 10px auto 0;
+            background: #fff;
+            padding: 30px 0;
+            border-top: 1px solid #eee;
+            border-radius: 24px 24px 0 0;
+        }
+        .service-grid {
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+            flex-wrap: wrap;
+        }
+        .service-item {
+            flex: 1;
+            border-right: 1px solid #eee;
+            padding: 0 10px;
+        }
+        .service-item:last-child {
+            border-right: none;
+        }
+        .service-icon span {
+            font-size: 32px;
+        }
+        .service-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 8px 0;
+        }
+        .service-desc {
+            font-size: 12px;
+            color: #999;
+        }
+        .service-desc a {
+            color: #999;
+            text-decoration: none;
+            margin: 0 3px;
+        }
+        .service-desc a:hover {
+            color: #1677ff;
+        }
+        .footer-links {
+            width: 1190px;
+            margin: 0 auto;
+            padding: 20px 0;
+            text-align: center;
+            border-top: 1px solid #eee;
+            background: #fff;
+        }
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 12px;
+            margin: 0 12px;
+        }
+        .footer-links a:hover {
+            color: #1677ff;
+        }
+        .footer-copyright {
+            text-align: center;
+            padding: 15px 0 30px;
+            color: #999;
+            font-size: 12px;
+            background: #fff;
+        }
+
+        @media (max-width: 1024px) {
+            .left { width: 220px; }
+            .goods-box { width: calc(25% - 15px); }
+            .my-stats { gap: 12px; }
+        }
+        @media (max-width: 768px) {
+            .main-box { flex-direction: column; }
+            .left { width: 100%; margin-bottom: 10px; }
+            .goods-box { width: calc(33.33% - 14px); }
+            .personal-header { flex-direction: column; text-align: center; }
+            .my-stats { flex-wrap: wrap; }
+            .stat-item { min-width: 80px; }
+        }
+        @media (max-width: 550px) {
+            .goods-box { width: calc(50% - 10px); }
+            .carousel-btn { width: 30px; height: 30px; font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 顶部导航 - 购物车链接正常 -->
+<div class="site-nav">
+    <div class="site-nav-bd">
+        <ul>
+            <li><a href="login.html">登录</a></li>
+            <li><a href="register.html">注册</a></li>
+            <li><a href="xin.html">我的订单</a></li>
+            <li><a href="cart.html"><img src="img/car.png" alt="购物车"><span>购物车</span><span class="cart-count" style="margin-left:5px;color:#1677ff;">0</span></a></li>
+            <li><a href="xin.html"><img src="img/star.png" alt="收藏夹"><span>收藏夹</span></a></li>
+            <li><a href="xin.html">联系客服</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- 搜索区域 -->
+<div class="top-box">
+    <div class="logo">
+        <a href="index.html"><p>商城</p><p class="small">store</p></a>
+    </div>
+    <div class="search-box">
+        <div class="search-in">
+            <span>宝贝<img src="img/down.png" width="10" style="margin-left:10px" alt="下拉"></span>
+            <img src="img/search.png" width="16" alt="搜索">
+            <input type="text" placeholder="搜索商品">
+            <div class="but">搜索</div>
+        </div>
+        <div class="tag">
+            <!-- 所有标签均跳转到 xin.html -->
+            <a href="xin.html">运动裤</a>
+            <a href="xin.html">四件套</a>
+            <a href="xin.html" class="on">手机</a>
+            <a href="xin.html">潮流T恤</a>
+            <a href="xin.html">外套</a>
+            <a href="xin.html">女包</a>
+            <a href="xin.html">沙发</a>
+            <a href="xin.html">台灯</a>
+        </div>
+    </div>
+</div>
+
+<!-- 主导航条 - 除首页外均跳转 xin.html -->
+<div class="nav-box">
+    <ul>
+        <li class="on"><a href="index.html">首页</a></li>
+        <li><a href="xin.html">生鲜</a></li>
+        <li><a href="xin.html">衣服</a></li>
+        <li><a href="xin.html">裤子</a></li>
+        <li><a href="xin.html">鞋子</a></li>
+        <li><a href="xin.html">帽子</a></li>
+        <li><a href="xin.html">家具</a></li>
+        <li><a href="xin.html">手机</a></li>
+        <li><span>更多</span>
+            <div class="nav-hide">
+                <p><a href="xin.html">关于我们</a></p>
+                <p><a href="xin.html">联系我们</a></p>
+                <p><a href="xin.html">加入我们</a></p>
+                <p><a href="xin.html">意见反馈</a></p>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<!-- 主内容区 -->
+<div class="main-box">
+    <!-- 左侧分类 - 全部跳转 xin.html -->
+    <div class="left">
+        <div class="tit">商品分类</div>
+        <ul>
+            <li><a href="xin.html"><span class="category-main">生鲜果蔬</span><span class="category-sub">水果蔬菜</span></a></li>
+            <li><a href="xin.html"><span class="category-main">美食推荐</span><span class="category-sub">面包干果</span></a></li>
+            <li><a href="xin.html"><span class="category-main">数码电子</span><span class="category-sub">手机电脑</span></a></li>
+            <li><a href="xin.html"><span class="category-main">家庭电器</span><span class="category-sub">电视冰箱</span></a></li>
+            <li><a href="xin.html"><span class="category-main">厨房用品</span><span class="category-sub">厨房电器餐具</span></a></li>
+        </ul>
+    </div>
+
+    <!-- 中间轮播图区域 -->
+    <div class="mid">
+        <div class="carousel-container" id="carousel">
+            <div class="carousel-slides" id="slidesWrapper">
+                <div class="carousel-slide active">
+                    <img src="img/ban.png" alt="banner_主视觉">
+                </div>
+                <div class="carousel-slide">
+                    <img src="img/banner1.jpg" alt="华为官网下了些图">
+                </div>
+            </div>
+            <div class="carousel-btn btn-prev" id="prevBtn">‹</div>
+            <div class="carousel-btn btn-next" id="nextBtn">›</div>
+            <div class="carousel-dots" id="dotsContainer"></div>
+        </div>
+    </div>
+</div>
+
+<!-- 商品推荐区域 - 增加加入购物车按钮 -->
+<div class="goods" id="goodsContainer">
+    <!-- 商品1 -->
+    <div class="goods-box">
+        <a href="detail.html?id=1"><img src="img/goods.jpg" alt="商品"></a>
+        <p class="name">特惠推荐</p>
+        <p class="price">￥99.00</p>
+        <button class="add-cart-btn" data-id="1" data-name="特惠推荐" data-price="99" data-img="img/goods.jpg">加入购物车</button>
+    </div>
+    <div class="goods-box">
+        <a href="detail.html?id=2"><img src="img/recommend1.png" alt="商品"></a>
+        <p class="name">爆款好物</p>
+        <p class="price">￥199.00</p>
+        <button class="add-cart-btn" data-id="2" data-name="爆款好物" data-price="199" data-img="img/recommend1.png">加入购物车</button>
+    </div>
+    <div class="goods-box">
+        <a href="detail.html?id=3"><img src="img/recommend2.png" alt="商品"></a>
+        <p class="name">节日礼品</p>
+        <p class="price">￥299.00</p>
+        <button class="add-cart-btn" data-id="3" data-name="节日礼品" data-price="299" data-img="img/recommend2.png">加入购物车</button>
+    </div>
+    <div class="goods-box">
+        <a href="detail.html?id=4"><img src="img/recommend3.png" alt="商品"></a>
+        <p class="name">鲜花园艺</p>
+        <p class="price">￥399.00</p>
+        <button class="add-cart-btn" data-id="4" data-name="鲜花园艺" data-price="399" data-img="img/recommend3.png">加入购物车</button>
+    </div>
+    <div class="goods-box">
+        <a href="detail.html?id=5"><img src="img/recommend4.png" alt="商品"></a>
+        <p class="name">精选商品</p>
+        <p class="price">￥499.00</p>
+        <button class="add-cart-btn" data-id="5" data-name="精选商品" data-price="499" data-img="img/recommend4.png">加入购物车</button>
+    </div>
+    <div class="goods-box">
+        <a href="detail.html?id=6"><img src="img/home5.png" alt="商品"></a>
+        <p class="name">品质家电</p>
+        <p class="price">￥899.00</p>
+        <button class="add-cart-btn" data-id="6" data-name="品质家电" data-price="899" data-img="img/home5.png">加入购物车</button>
+    </div>
+    <div class="goods-box">
+        <a href="detail.html?id=7"><img src="img/home6.png" alt="商品"></a>
+        <p class="name">潮流服饰</p>
+        <p class="price">￥129.00</p>
+        <button class="add-cart-btn" data-id="7" data-name="潮流服饰" data-price="129" data-img="img/home6.png">加入购物车</button>
+    </div>
+    <div class="goods-box">
+        <a href="detail.html?id=8"><img src="img/home7.png" alt="商品"></a>
+        <p class="name">美妆个护</p>
+        <p class="price">￥89.00</p>
+        <button class="add-cart-btn" data-id="8" data-name="美妆个护" data-price="89" data-img="img/home7.png">加入购物车</button>
+    </div>
+    <div class="goods-box">
+        <a href="detail.html?id=9"><img src="img/home8.png" alt="商品"></a>
+        <p class="name">数码尖货</p>
+        <p class="price">￥599.00</p>
+        <button class="add-cart-btn" data-id="9" data-name="数码尖货" data-price="599" data-img="img/home8.png">加入购物车</button>
+    </div>
+    <div class="goods-box">
+        <a href="detail.html?id=10"><img src="img/qrcode.png" alt="华为mate"></a>
+        <p class="name">重复仅展示</p>
+        <p class="price">￥599.00</p>
+        
+    </div>
+</div>
+
+<!-- 个人主页模块（固定不变） -->
+<div class="bottom-personal">
+    <div class="personal-header">
+        <div class="avatar-lg">
+            <img src="img/pic.jpg" alt="头像" style="width:100%;height:100%;border-radius:50%;object-fit:cover">
+        </div>
+        <div class="personal-info">
+            <h3>24215220137 陈之奂</h3>
+            <p>⭐ 会员积分 137</p>
+        </div>
+    </div>
+    <div class="my-stats">
+        <div class="stat-item"><div class="stat-num">24</div><div class="stat-label">购物车</div></div>
+        <div class="stat-item"><div class="stat-num">21</div><div class="stat-label">待收货</div></div>
+        <div class="stat-item"><div class="stat-num">522</div><div class="stat-label">待发货</div></div>
+        <div class="stat-item"><div class="stat-num">013</div><div class="stat-label">待付款</div></div>
+        <div class="stat-item"><div class="stat-num">7</div><div class="stat-label">待评价</div></div>
+    </div>
+    <div class="service-links-grid">
+        <div class="quick-card"><div class="card-title">📘 购物指南</div><div class="card-detail"><span>购物流程</span><span>支付方式</span><span>售后规则</span></div></div>
+        <div class="quick-card"><div class="card-title">🚚 配送服务</div><div class="card-detail"><span>配送运费</span><span>配送范围</span><span>配送时间</span></div></div>
+        <div class="quick-card"><div class="card-title">🏢 关于我们</div><div class="card-detail"><span>平台规则</span><span>联系我们</span><span>问题反馈</span></div></div>
+        <div class="quick-card"><div class="card-title">🔧 售后服务</div><div class="card-detail"><span>售后政策</span><span>退款说明</span><span>取消订单</span></div></div>
+        <div class="quick-card"><div class="card-title">📞 客服热线</div><div class="card-detail"><span>在线客服</span><span class="hot-line">400-0000-000</span><br><span>工作时间 8:00-18:00</span></div></div>
+        <div class="quick-card"><div class="card-title">⏰ 服务时间</div><div class="card-detail"><span>周一至周日 8:00-22:00</span><span>节假日无休</span></div></div>
+    </div>
+</div>
+
+<!-- 底部服务区域 - 所有链接跳转 xin.html -->
+<div class="service-footer">
+    <div class="service-grid">
+        <div class="service-item"><div class="service-icon"><span>📦</span></div><div class="service-title">购物指南</div><div class="service-desc"><a href="xin.html">购物流程</a> | <a href="xin.html">支付方式</a> | <a href="xin.html">售后规则</a></div></div>
+        <div class="service-item"><div class="service-icon"><span>🚚</span></div><div class="service-title">配送方式</div><div class="service-desc"><a href="xin.html">配送运费</a> | <a href="xin.html">配送范围</a> | <a href="xin.html">配送时间</a></div></div>
+        <div class="service-item"><div class="service-icon"><span>🏢</span></div><div class="service-title">关于我们</div><div class="service-desc"><a href="xin.html">平台规则</a> | <a href="xin.html">联系我们</a> | <a href="xin.html">问题反馈</a></div></div>
+        <div class="service-item"><div class="service-icon"><span>🔧</span></div><div class="service-title">售后服务</div><div class="service-desc"><a href="xin.html">售后政策</a> | <a href="xin.html">退款说明</a> | <a href="xin.html">取消订单</a></div></div>
+        <div class="service-item"><div class="service-icon"><span>📞</span></div><div class="service-title">服务热线</div><div class="service-desc"><a href="xin.html">在线客服</a> | <a href="xin.html">400-0000-000</a><br>工作时间 周一至周日 8:00-18:00</div></div>
+    </div>
+</div>
+<div class="footer-links">
+    <a href="xin.html">关于我们</a><span>|</span>
+    <a href="xin.html">帮助中心</a><span>|</span>
+    <a href="xin.html">售后服务</a><span>|</span>
+    <a href="xin.html">配送与验收</a><span>|</span>
+    <a href="xin.html">商务合作</a><span>|</span>
+    <a href="xin.html">搜索推荐</a>
+</div>
+<div class="footer-copyright">24215220137 陈之奂</div>
+
+<script>
+    // 轮播图功能
+    (function() {
+        const slides = document.querySelectorAll('.carousel-slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const dotsContainer = document.getElementById('dotsContainer');
+        let currentIndex = 0;
+        let autoInterval;
+        const intervalTime = 4000;
+
+        function createDots() {
+            dotsContainer.innerHTML = '';
+            slides.forEach((_, idx) => {
+                const dot = document.createElement('span');
+                dot.classList.add('dot');
+                if (idx === currentIndex) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(idx));
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        function goToSlide(index) {
+            if (index < 0) index = slides.length - 1;
+            if (index >= slides.length) index = 0;
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+            currentIndex = index;
+        }
+
+        function nextSlide() { goToSlide(currentIndex + 1); }
+        function prevSlide() { goToSlide(currentIndex - 1); }
+        function startAutoPlay() {
+            if (autoInterval) clearInterval(autoInterval);
+            autoInterval = setInterval(nextSlide, intervalTime);
+        }
+        function stopAutoPlay() {
+            if (autoInterval) {
+                clearInterval(autoInterval);
+                autoInterval = null;
+            }
+        }
+
+        const carousel = document.getElementById('carousel');
+        carousel.addEventListener('mouseenter', stopAutoPlay);
+        carousel.addEventListener('mouseleave', startAutoPlay);
+        prevBtn.addEventListener('click', () => { prevSlide(); stopAutoPlay(); startAutoPlay(); });
+        nextBtn.addEventListener('click', () => { nextSlide(); stopAutoPlay(); startAutoPlay(); });
+
+        createDots();
+        startAutoPlay();
+    })();
+
+    // ==================== 购物车核心功能 ====================
+    class EcommerceApp {
+        constructor() {
+            this.cart = JSON.parse(localStorage.getItem('cart')) || [];
+            this.init();
+        }
+
+        init() {
+            this.updateCartCount();
+            this.bindAddToCartButtons();
+        }
+
+        // 绑定所有加入购物车按钮
+        bindAddToCartButtons() {
+            const btns = document.querySelectorAll('.add-cart-btn');
+            btns.forEach(btn => {
+                // 移除旧监听，避免重复
+                btn.removeEventListener('click', this.handleAddToCart);
+                btn.addEventListener('click', this.handleAddToCart.bind(this));
+            });
+        }
+
+        handleAddToCart(e) {
+            const btn = e.currentTarget;
+            // 如果按钮禁用则返回
+            if (btn.disabled) return;
+            const id = btn.getAttribute('data-id');
+            const name = btn.getAttribute('data-name');
+            const price = parseFloat(btn.getAttribute('data-price'));
+            const image = btn.getAttribute('data-img');
+
+            const existingItem = this.cart.find(item => item.id === id);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                this.cart.push({
+                    id: id,
+                    name: name,
+                    price: price,
+                    image: image,
+                    quantity: 1
+                });
+            }
+            this.saveCart();
+            this.updateCartCount();
+            alert(`“${name}”已加入购物车`);
+        }
+
+        saveCart() {
+            localStorage.setItem('cart', JSON.stringify(this.cart));
+        }
+
+        updateCartCount() {
+            const count = this.cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartCountElements = document.querySelectorAll('.cart-count');
+            cartCountElements.forEach(el => {
+                el.textContent = count;
+            });
+        }
+    }
+
+    // 初始化购物车应用
+    const app = new EcommerceApp();
+    // 确保动态添加的按钮也能绑定（但本页面无动态添加，仅作安全）
+    if (document.getElementById('goodsContainer')) {
+        // 观察商品区域变化（可选）
+        const observer = new MutationObserver(() => app.bindAddToCartButtons());
+        observer.observe(document.getElementById('goodsContainer'), { childList: true, subtree: true });
+    }
+</script>
+</body>
+</html>
