@@ -28,8 +28,6 @@ class EcommerceApp {
     // ==================== 商品数据 ====================
 
     /**
-     * 获取默认商品数据（备用的硬编码数据）
-     * 当网络请求失败时使用，确保页面正常显示
      * @returns {Array} 商品对象数组
      */
     getDefaultProducts() {
@@ -43,18 +41,13 @@ class EcommerceApp {
             { id: "7", name: "潮流服饰", price: 129, originalPrice: 299, rating: 4.7, sold: 876, description: "时尚穿搭，潮流之选", image: "img/home6.png" },
             { id: "8", name: "美妆个护", price: 89, originalPrice: 199, rating: 4.8, sold: 2341, description: "美妆护肤，焕发光彩", image: "img/home7.png" },
             { id: "9", name: "数码尖货", price: 599, originalPrice: 999, rating: 4.9, sold: 654, description: "数码产品，科技前沿", image: "img/home8.png" },
-            { id: "10", name: "扫码下载", price: 0, originalPrice: 0, rating: 5, sold: 9999, description: "扫描二维码下载APP", image: "img/qrcode.png" }
+            { id: "10", name: "只有点击图片可以", price: 0, originalPrice: 0, rating: 5, sold: 9999, description: "删掉了首页对应加入购物车按钮", image: "img/qrcode.png" }
         ];
     }
 
-    /**
-     * 异步加载商品数据
-     * 优先从 data/products.json 获取，失败则使用默认数据
-     * 根据当前页面路径决定渲染哪个页面
-     */
+    
     async loadProducts() {
         try {
-            // 尝试从 JSON 文件加载商品数据
             const response = await fetch('data/products.json');
             if (response.ok) {
                 this.products = await response.json();  // 请求成功，使用远程数据
